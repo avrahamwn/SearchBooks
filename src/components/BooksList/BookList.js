@@ -7,8 +7,10 @@ export default function BookList(props) {
         props.arr.map(item => (
             <BookItem
                 key={item.id}
+                id={item.id}
                 title={item.volumeInfo.title || "No Title"}
                 author={item.volumeInfo .authors ?  "by " + item.volumeInfo .authors[0] : "Author name unspecified"}
+                isWishList={props.isWishList}                
             />
         ))
 

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { AiOutlineHeart } from "react-icons/ai";
 
 
 
@@ -30,8 +29,4 @@ export const Author = styled.div`
     
 `;
 
-export const HeartIcon = styled(AiOutlineHeart)`
-    font-size: 30px;
-    cursor: pointer;
-`;
 

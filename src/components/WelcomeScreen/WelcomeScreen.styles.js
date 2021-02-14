@@ -48,7 +48,7 @@ export const Button = styled(Link)`
     border-radius: 10px;
     padding: 10px 10px;
     font-size: 15px;
-    background-color: blueviolet;
+    background-color: ${props => props.active ? 'blue' : 'green' };
     color: white;
     border: none;
     outline: none;
@@ -56,5 +56,5 @@ export const Button = styled(Link)`
     display: flex;
     align-items: center;
     justify-content: center;
-        
+
 `;
