@@ -28,15 +28,16 @@ export const InputLabel = styled.div`
 
 export const Input = styled(DebounceInput).attrs(attrs => ({
     placeholder:"e.g. Uncle Tom's Cabine",    
-    debounceTimeout:300    
+    debounceTimeout:300,
+    minLength:1  
 }))`
     background-color:#cfd4d6;
     border:none;
     outline:none;
     border-bottom: solid 1px #3d87a0;
-    margin-top:20px;
+    margin:20px 0 20px 0;
     height:35px;
-    width: 400px;
+    width: 500px;
     font-size:20px;
     padding-left: 10px;
     color: #3d87a0;

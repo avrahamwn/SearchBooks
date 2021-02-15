@@ -7,7 +7,7 @@ import { removeBook } from './../../redux/actions/RemoveBook.action'
 import { connect } from 'react-redux'
 
 
-const { Component, Title, Author, HeartIcon } = styles;
+const { Component, Title, Author } = styles;
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     addBook: (item) => dispatch(addBook(item)),
@@ -27,7 +27,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
         function onIconClicked() {
             setChecked(!checked)
-            let book = { id: props.id, volumeInfo: { title: props.title, author: props.author } }
+            let book = { id: props.id, volumeInfo: { title: props.title, authors: [props.author] } }
             !checked ? props.addBook(book) : props.removeBook(book)
         }
 

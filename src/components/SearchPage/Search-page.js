@@ -4,6 +4,7 @@ import BookList from "../BooksList/BookList";
 import axios from 'axios';
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
+import Pagination from '@material-ui/lab/Pagination';
 
 const { Component, Title, SubTitle, InputLabel, Input, ListWrapper, WishListLink, ArrowIcon, WishLinkText } = styles;
 
@@ -13,20 +14,30 @@ const mapStateToProps = (state) => {
 
 function SearchPage(props) {
     const [booksList, setBooksList] = useState([])
+    const [numOfPages, setNumOfPages] = useState(0);
+    const [keyWord, setKeyWord] = useState('')
 
-
-    function onInputChange(event) {
-        axios.get('https://www.googleapis.com/books/v1/volumes?q=' + event.target.value)
+    function getBooks(startIndex = 0) {
+        axios.get('https://www.googleapis.com/books/v1/volumes?maxResults=15&q=' + keyWord + '&startIndex=' + startIndex)
             .then(response => {
                 setBooksList(response.data.items[0] ? response.data.items : [])
+                setNumOfPages(Math.round(response.data.totalItems / 15))
                 console.log(booksList);
             })
             .catch(() => {
-                setBooksList([])
-                console.log(booksList);
-
+                setBooksList([])                
             })
     }
+
+    function onInputChange(event) {
+        setKeyWord(event.target.value)
+        getBooks();
+    }
+
+    function handlePagination(event, value) {        
+        getBooks(value * 15);
+    }
+
     if (!props.username) {
         return (
             <Redirect to="/" />
@@ -50,6 +61,7 @@ function SearchPage(props) {
                 <Input
                     onChange={onInputChange}
                 />
+                <Pagination count={numOfPages} variant="outlined" color="primary" onChange={handlePagination} />
                 <ListWrapper>
                     <BookList arr={booksList} />
                 </ListWrapper>
@@ -59,4 +71,6 @@ function SearchPage(props) {
     }
 
 }
+
+
 export default connect(mapStateToProps, null)(SearchPage);
